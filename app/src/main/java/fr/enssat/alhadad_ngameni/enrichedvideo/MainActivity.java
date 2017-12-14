@@ -42,15 +42,6 @@ public class MainActivity extends AppCompatActivity implements JSONRes {
 
 
         new JSONParse(activity).execute(apiBase);
-
-        Button b = findViewById(R.id.button);
-        b.setOnClickListener(new Button.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                new JSONParse(activity).execute(apiBase);
-            }
-        });
     }
 
     @Override

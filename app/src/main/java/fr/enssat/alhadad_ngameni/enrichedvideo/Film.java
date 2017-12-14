@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ class Film implements Serializable {
     private String homepage;
     private String videoUrl;
     private int videoDuration;
-    private List<String> chapters;
+    private List<Chapter> chapters;
 
     private Bitmap posterFile;
     private Bitmap backgroundFile;
@@ -41,6 +43,12 @@ class Film implements Serializable {
             this.homepage = obj.getString("homepage");
             this.videoUrl = obj.getJSONObject("video").getString("url");
             this.videoDuration = obj.getJSONObject("video").getInt("duration");
+            JSONArray chapters = obj.getJSONArray("chapters");
+            this.chapters = new ArrayList<>();
+            for (int i = 0 ; i<chapters.length(); i++) {
+                JSONObject chapter = chapters.getJSONObject(i);
+                this.chapters.add(new Chapter(chapter.getString("title"),chapter.getDouble("position")));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -118,5 +126,9 @@ class Film implements Serializable {
     public void removeMedia() {
         this.backgroundFile = null;
         this.posterFile = null;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
     }
 }

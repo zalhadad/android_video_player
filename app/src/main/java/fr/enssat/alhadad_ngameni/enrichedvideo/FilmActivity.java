@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.MediaController;
 import android.widget.Spinner;
@@ -15,6 +16,8 @@ import android.widget.VideoView;
 public class FilmActivity extends AppCompatActivity implements ImagesTask {
     Film film;
     VideoView video;
+    Spinner spinner;
+    WebView page;
     android.widget.RelativeLayout.LayoutParams params;
 
     @Override
@@ -25,15 +28,14 @@ public class FilmActivity extends AppCompatActivity implements ImagesTask {
         this.film = (Film) intent.getSerializableExtra("film");
         new ImageLoadTask(this).execute(film);
         video = findViewById(R.id.videoView);
-
-        Spinner spinner = findViewById(R.id.spinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+        page = findViewById(R.id.webView);
+        spinner = findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ChapitresAdapter adapter = new ChapitresAdapter(this, film.getChapters());
+        // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        page.getSettings().setJavaScriptEnabled(true);
+        page.loadUrl(film.getHomepage());
 
     }
 
