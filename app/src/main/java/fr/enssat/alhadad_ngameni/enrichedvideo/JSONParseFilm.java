@@ -4,20 +4,16 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONObject;
 
 /**
  * Created by zaid on 30/11/17.
  */
-public class JSONParse extends AsyncTask<String, Void, List<Film>> {
+public class JSONParseFilm extends AsyncTask<String, Void, Film> {
     public JSONRes parent;
     ProgressDialog progDailog;
 
-    public JSONParse(JSONRes res) {
+    public JSONParseFilm(JSONRes res) {
 
         parent = res;
     }
@@ -34,27 +30,17 @@ public class JSONParse extends AsyncTask<String, Void, List<Film>> {
     }
 
     @Override
-    protected List<Film> doInBackground(String... strings) {
+    protected Film doInBackground(String... strings) {
         JSONParser jParser = new JSONParser();
         // Getting JSON from URL
-        JSONArray json = jParser.getJSONArrayFromUrl(strings[0]);
-        List<Film> films = new ArrayList<>();
-        try {
-            for (int i = 0; i < json.length(); i++) {
-                Film tmp = new Film(json.getJSONObject(i));
-                tmp.loadPoster();
-                films.add(tmp);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return films;
+        JSONObject json = jParser.getJSONFromUrl(strings[0]);
+        return new Film(json);
     }
 
     @Override
-    protected void onPostExecute(List<Film> res) {
+    protected void onPostExecute(Film res) {
         super.onPostExecute(res);
         progDailog.dismiss();
-        parent.onResult(res);
+        parent.onFilm(res);
     }
 }

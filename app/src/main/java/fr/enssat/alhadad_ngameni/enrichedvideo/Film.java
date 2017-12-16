@@ -21,38 +21,37 @@ import java.util.List;
 
 class Film implements Serializable {
     private static final long serialVersionUID = 1350092881346723535L;
-
+    private int id;
     private String title;
     private String releaseDate;
     private String poster;
-    private String background;
+    private String summary;
     private String homepage;
     private String videoUrl;
-    private int videoDuration;
     private List<Chapter> chapters;
 
     private Bitmap posterFile;
-    private Bitmap backgroundFile;
 
     public Film(JSONObject obj) {
         try {
+            this.id = obj.getInt("id");
             this.title = obj.getString("title");
             this.releaseDate = obj.getString("releaseDate");
             this.poster = obj.getString("poster");
-            this.background = obj.getString("background");
-            this.homepage = obj.getString("homepage");
+            //this.homepage = obj.getString("homepage");
+            this.summary = obj.getString("summary");
             this.videoUrl = obj.getJSONObject("video").getString("url");
-            this.videoDuration = obj.getJSONObject("video").getInt("duration");
             JSONArray chapters = obj.getJSONArray("chapters");
             this.chapters = new ArrayList<>();
-            for (int i = 0 ; i<chapters.length(); i++) {
+            for (int i = 0; i < chapters.length(); i++) {
                 JSONObject chapter = chapters.getJSONObject(i);
-                this.chapters.add(new Chapter(chapter.getString("title"),chapter.getDouble("position")));
+                this.chapters.add(new Chapter(chapter.getString("name"), chapter.getInt("position"), chapter.getString("page")));
             }
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e("JSON FILM", e.getMessage());
+        } catch (Exception e) {
+            Log.e("FILM", e.getMessage());
         }
-        this.backgroundFile = null;
         this.posterFile = null;
 
     }
@@ -74,10 +73,6 @@ class Film implements Serializable {
         }
     }
 
-    public String getBackground() {
-        return background;
-    }
-
     public String getHomepage() {
         return homepage;
     }
@@ -86,16 +81,9 @@ class Film implements Serializable {
         return videoUrl;
     }
 
-    public int getVideoDuration() {
-        return videoDuration;
-    }
 
     public Bitmap getPosterFile() {
         return posterFile;
-    }
-
-    public Bitmap getBackgroundFile() {
-        return backgroundFile;
     }
 
     public String getReleaseDate() {
@@ -106,29 +94,26 @@ class Film implements Serializable {
         return title;
     }
 
-    public String getPoster() {
-        return poster;
-    }
 
     public void loadPoster() {
         this.posterFile = Film.loadImage(this.poster);
     }
 
-    public void loadBackground() {
-        this.backgroundFile = Film.loadImage(this.background);
-    }
 
-    public void loadImages() {
-        this.loadPoster();
-        this.loadBackground();
-    }
 
     public void removeMedia() {
-        this.backgroundFile = null;
         this.posterFile = null;
     }
 
     public List<Chapter> getChapters() {
         return chapters;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 }

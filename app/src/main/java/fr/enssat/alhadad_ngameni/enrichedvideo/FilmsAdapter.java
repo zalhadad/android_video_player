@@ -40,6 +40,7 @@ public class FilmsAdapter extends ArrayAdapter<Film> {
         Film film = getItem(position);
 
         //il ne reste plus qu'à remplir notre vue
+        assert film != null;
         viewHolder.title.setText(film.getTitle());
         viewHolder.releaseDate.setText(film.getReleaseDate());
         viewHolder.poster.setImageBitmap(film.getPosterFile());

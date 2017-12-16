@@ -21,7 +21,7 @@ public class ImageLoadTask extends AsyncTask<Film, Void, Film> {
     protected Film doInBackground(Film... films) {
 
         Film film = films[0];
-        film.loadImages();
+        film.loadPoster();
         return film;
     }
 

@@ -45,7 +45,7 @@ public class JSONParser {
                 in.close();
                 json = sb.toString();
             } catch (Exception e) {
-                Log.e("chaka", e.getMessage());
+                Log.e(JSONParser.class.getName(), e.getMessage());
             } finally {
                 urlConnection.disconnect();
             }
@@ -66,10 +66,10 @@ public class JSONParser {
         // try parse the string to a JSON object
         try {
             jObj = new JSONObject(json);
+
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-
         // return JSON String
         return jObj;
 

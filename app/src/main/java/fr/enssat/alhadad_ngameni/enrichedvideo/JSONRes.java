@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface JSONRes {
     void onResult(List<Film> obj);
+
+    void onFilm(Film obj);
+
 }

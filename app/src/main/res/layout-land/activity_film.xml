@@ -1,73 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
     tools:context="fr.enssat.alhadad_ngameni.enrichedvideo.FilmActivity">
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:textSize="15sp"
-        android:text="ef"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/videoContainer"
-        android:layout_width="346dp"
-        android:layout_height="209dp"
-        android:layout_below="@+id/title"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title">
-
-        <VideoView
-            android:id="@+id/videoView"
-            android:layout_width="346dp"
-            android:layout_height="209dp"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            tools:layout_editor_absoluteX="12dp" />
-    </LinearLayout>
-
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="668dp"
-        android:layout_height="32dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/videoContainer"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/webView"
-        app:layout_constraintStart_toStartOf="@+id/videoContainer" />
-
-    <WebView
-        android:id="@+id/webView"
-        android:layout_width="314dp"
-        android:layout_height="209dp"
-        android:layout_below="@+id/videoContainer"
-        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/videoContainer"
-        app:layout_constraintTop_toBottomOf="@+id/title" />
-</android.support.constraint.ConstraintLayout>
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat" />
 
+    <LinearLayout
+        android:id="@+id/filmLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </WebView>
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary" />
+</LinearLayout>

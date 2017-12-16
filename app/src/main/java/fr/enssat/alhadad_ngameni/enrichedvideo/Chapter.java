@@ -1,31 +1,39 @@
 package fr.enssat.alhadad_ngameni.enrichedvideo;
 
+import java.io.Serializable;
+
 /**
  * Created by Rushman on 12/14/2017.
  */
 
-public class Chapter {
+public class Chapter implements Serializable {
+    private static final long serialVersionUID = 1350092832426723535L;
     String title;
-    double position;
+    int position;
+    String page;
 
-    public Chapter(String title, double position) {
+    public Chapter(String title, float position, String page) {
         this.title = title;
         this.position = Math.round(position);
+        this.page = page;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public double getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(double position) {
-        this.position = position;
+    public String getPage() {
+        return page;
+    }
+
+
+    @Override
+    public String toString() {
+
+        return getTitle();
     }
 }

@@ -10,7 +10,8 @@
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
-        android:layout_marginTop="5dp"></ImageView>
+        android:layout_marginTop="5dp"
+        android:contentDescription="Film poster" />
 
     <TextView
         android:id="@+id/title"
@@ -18,7 +19,6 @@
         android:layout_height="50dp"
         android:layout_toRightOf="@+id/poster"
         android:gravity="center_vertical"
-        android:text="TextView"
         android:textColor="@android:color/holo_blue_dark"
         android:textStyle="bold" />
 
@@ -27,6 +27,5 @@
         android:layout_width="300dp"
         android:layout_height="30dp"
         android:layout_below="@+id/title"
-        android:layout_toEndOf="@+id/poster"
-        android:text="TextView" />
+        android:layout_toEndOf="@+id/poster" />
 </RelativeLayout>
