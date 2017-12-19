@@ -18,20 +18,20 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 
-public class FilmActivity extends AppCompatActivity implements ImagesTask {
+public class FilmActivity extends AppCompatActivity {
     Film film;
     VideoView video;
     Spinner spinner;
     WebView page;
     LinearLayout layout;
     MediaController mc;
+    Thread thread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film);
         Intent intent = getIntent();
         this.film = (Film) intent.getSerializableExtra("film");
-        new ImageLoadTask(this).execute(film);
         video = findViewById(R.id.videoView);
         mc = new MediaController(FilmActivity.this);
         video.setMediaController(mc);
@@ -79,13 +79,51 @@ public class FilmActivity extends AppCompatActivity implements ImagesTask {
                     }
                 });
 
-    }
 
-    @Override
-    public void onResult(Film obj) {
+        this.thread = new Thread() {
+
+            @Override
+            public void run() {
+                try {
+                    class Index {
+                        public int value;
+
+                        public Index() {
+                            this.value = 0;
+                        }
+                    }
+                    final Index index = new Index();
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                int current_index = film.getCharperIndexByTime(video.getCurrentPosition());
+                                if (index.value != current_index) {
+                                    index.value = current_index;
+                                    Chapter chapter = film.getChapters().get(index.value);
+                                    spinner.setSelection(index.value);
+                                }
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
         TextView title = findViewById(R.id.title);
         title.setText(film.getTitle());
         video.setVideoURI(Uri.parse(film.getVideoUrl()));
         video.start();
+        thread.start();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        thread.interrupt();
+
     }
 }

@@ -12,9 +12,9 @@ public class Chapter implements Serializable {
     int position;
     String page;
 
-    public Chapter(String title, float position, String page) {
+    public Chapter(String title, int position, String page) {
         this.title = title;
-        this.position = Math.round(position);
+        this.position = position;
         this.page = page;
     }
 

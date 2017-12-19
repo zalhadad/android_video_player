@@ -56,7 +56,7 @@ class Film implements Serializable {
 
     }
 
-    public static Bitmap loadImage(String imageUrl) {
+    private static Bitmap loadImage(String imageUrl) {
         try {
             URL url = new URL(imageUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -99,7 +99,15 @@ class Film implements Serializable {
         this.posterFile = Film.loadImage(this.poster);
     }
 
-
+    public int getCharperIndexByTime(int time) {
+        int current = 0;
+        int i = 0;
+        while (i < chapters.size() && chapters.get(i).getPosition() <= time) {
+            current = i;
+            i++;
+        }
+        return current;
+    }
 
     public void removeMedia() {
         this.posterFile = null;

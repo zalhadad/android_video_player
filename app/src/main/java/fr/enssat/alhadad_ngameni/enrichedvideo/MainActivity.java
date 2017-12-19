@@ -1,5 +1,6 @@
 package fr.enssat.alhadad_ngameni.enrichedvideo;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +40,17 @@ public class MainActivity extends AppCompatActivity implements JSONRes {
                 startActivity(i);
             }
         });
-
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Film film = (Film) adapterView.getItemAtPosition(i);
+                AlertDialog.Builder d = new AlertDialog.Builder(activity);
+                d.setTitle(film.getTitle());
+                d.setMessage(film.getSummary());
+                d.show();
+                return true;
+            }
+        });
 
         new JSONParse(activity).execute(apiBase);
     }
