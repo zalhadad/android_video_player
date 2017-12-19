@@ -38,11 +38,12 @@ class Film implements Serializable {
             this.title = obj.getString("title");
             this.releaseDate = obj.getString("releaseDate");
             this.poster = obj.getString("poster");
-            //this.homepage = obj.getString("homepage");
             this.summary = obj.getString("summary");
+            this.homepage = obj.getString("homepage");
             this.videoUrl = obj.getJSONObject("video").getString("url");
             JSONArray chapters = obj.getJSONArray("chapters");
             this.chapters = new ArrayList<>();
+            // this.chapters.add(new Chapter("Début",0,this.getHomepage()));
             for (int i = 0; i < chapters.length(); i++) {
                 JSONObject chapter = chapters.getJSONObject(i);
                 this.chapters.add(new Chapter(chapter.getString("name"), chapter.getInt("position"), chapter.getString("page")));
@@ -100,8 +101,8 @@ class Film implements Serializable {
     }
 
     public int getCharperIndexByTime(int time) {
-        int current = 0;
         int i = 0;
+        int current = 0;
         while (i < chapters.size() && chapters.get(i).getPosition() <= time) {
             current = i;
             i++;

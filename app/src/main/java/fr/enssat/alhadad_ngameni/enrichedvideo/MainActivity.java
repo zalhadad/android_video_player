@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements JSONRes {
         });
 
         new JSONParse(activity).execute(apiBase);
+
     }
 
     @Override

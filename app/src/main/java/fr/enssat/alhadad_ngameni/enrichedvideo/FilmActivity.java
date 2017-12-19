@@ -33,6 +33,7 @@ public class FilmActivity extends AppCompatActivity {
         Intent intent = getIntent();
         this.film = (Film) intent.getSerializableExtra("film");
         video = findViewById(R.id.videoView);
+        video.setVideoURI(Uri.parse(film.getVideoUrl()));
         mc = new MediaController(FilmActivity.this);
         video.setMediaController(mc);
         page = findViewById(R.id.webView);
@@ -49,9 +50,13 @@ public class FilmActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Chapter chapter = film.getChapters().get(i);
-                video.seekTo(chapter.getPosition());
-                video.start();
+                if (i != film.getCharperIndexByTime(video.getCurrentPosition())) {
+                    video.seekTo(chapter.getPosition());
+                    video.start();
+                }
                 page.loadUrl(chapter.getPage());
+
+
             }
 
             @Override
@@ -76,6 +81,7 @@ public class FilmActivity extends AppCompatActivity {
                             video.getLayoutParams().width = width;
                         }
                         mc.setAnchorView(video);
+                        video.start();
                     }
                 });
 
@@ -98,11 +104,14 @@ public class FilmActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (!video.isPlaying()) {
+                                    video.seekTo(0);
+                                    video.start();
+                                }
                                 int current_index = film.getCharperIndexByTime(video.getCurrentPosition());
                                 if (index.value != current_index) {
                                     index.value = current_index;
-                                    Chapter chapter = film.getChapters().get(index.value);
-                                    spinner.setSelection(index.value);
+                                    spinner.setSelection(index.value, true);
                                 }
                             }
                         });
@@ -114,10 +123,15 @@ public class FilmActivity extends AppCompatActivity {
 
         TextView title = findViewById(R.id.title);
         title.setText(film.getTitle());
-        video.setVideoURI(Uri.parse(film.getVideoUrl()));
-        video.start();
         thread.start();
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        video.start();
     }
 
     @Override
