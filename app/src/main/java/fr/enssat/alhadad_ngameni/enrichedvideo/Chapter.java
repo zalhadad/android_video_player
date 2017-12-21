@@ -3,7 +3,16 @@ package fr.enssat.alhadad_ngameni.enrichedvideo;
 import java.io.Serializable;
 
 /**
- * Created by Rushman on 12/14/2017.
+ * <b>Chapitre est la classe qui représente un chapitre d'un film.</b>
+ * Un Chapitre est caractérisé par les informations suivantes :
+ * <ul>
+ *     <li>Un titre.</li>
+ *     <li>Une position dans la vidéo.</li>
+ *     <li>Une page.</li>
+ * </ul>
+ * @version 1.0
+ * @author zaid
+ * @author chaka
  */
 
 public class Chapter implements Serializable {

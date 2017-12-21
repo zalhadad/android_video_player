@@ -16,7 +16,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zaid on 07/12/17.
+ * <b>Film est la classe qui représente un film renvoyé par notre API.</b>
+ * Un film est caractérisé par les informations suivantes :
+ * <ul>
+ *     <li>Un identifiant unique.</li>
+ *     <li>Un titre.</li>
+ *     <li>Une date de sortie.</li>
+ *     <li>Une image poster.</li>
+ *     <li>Un résumé.</li>
+ *     <li>Une page d'accueil.</li>
+ *     <li>Une URL de la vidéo.</li>
+ *     <li>Une liste de chpitres</li>
+ * </ul>
+ * @version 1.0
+ * @author zaid
+ * @author chaka
  */
 
 class Film implements Serializable {
@@ -32,6 +46,18 @@ class Film implements Serializable {
 
     private Bitmap posterFile;
 
+    /**
+     * Constructeur Film.
+     *
+     * <p>
+     *     A la construction d'un objet Film, les différents attributs sont remplis
+     *     à partir de l'objet JSON retourné par l'API.
+     * </p>
+     *
+     * @param obj l'objet JSON retrouné l'API.
+     * @see fr.enssat.alhadad_ngameni.enrichedvideo.JSONParseFilm#doInBackground(String...)
+     *
+     */
     public Film(JSONObject obj) {
         try {
             this.id = obj.getInt("id");
@@ -57,6 +83,13 @@ class Film implements Serializable {
 
     }
 
+    /**
+     * Télécharge l'image du poster du Film à partir de son URL.
+     *
+     * @param imageUrl l'url de l'image.
+     *
+     * @return Le bitmap de l'image ou null si on n'a pas pu la télécharger.
+     */
     private static Bitmap loadImage(String imageUrl) {
         try {
             URL url = new URL(imageUrl);
@@ -95,11 +128,22 @@ class Film implements Serializable {
         return title;
     }
 
-
+    /**
+     * Charge le bitmap téléchargé dans le poster.
+     * @see Film#loadImage(String)
+     *
+     */
     public void loadPoster() {
         this.posterFile = Film.loadImage(this.poster);
     }
 
+    /**
+     *
+     * Méthode qui retourne l'index du chapitre du Film en fonction de où l'on se trouve dans la vidéo.
+     *
+     * @param time
+     * @return L'index du chapitre du Film.
+     */
     public int getCharperIndexByTime(int time) {
         int i = 0;
         int current = 0;
@@ -109,6 +153,11 @@ class Film implements Serializable {
         }
         return current;
     }
+
+    /**
+     * Reinitialise le bitmap du poster du Film à null.
+     * Necessaire lorsqu'on veut passer le Film à une activité.
+     */
 
     public void removeMedia() {
         this.posterFile = null;

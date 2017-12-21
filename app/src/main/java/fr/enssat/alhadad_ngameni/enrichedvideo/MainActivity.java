@@ -14,6 +14,14 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activité affichant l'écran principale chargeant la liste des films.
+ *
+ * @version 1.0
+ * @author zaid
+ * @author chaka
+ */
+
 public class MainActivity extends AppCompatActivity implements JSONRes {
     final MainActivity activity = this;
     ListView mListView;

@@ -13,6 +13,14 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Activité affichant l'écran de recherche chargeant la liste des films après une recherche.
+ * Passe à la FilmActivity lorsqu'un film est sélectionné.
+ * @version 1.0
+ * @author zaid
+ * @author chaka
+ */
+
 public class SearchActivity extends AppCompatActivity implements JSONRes {
     final SearchActivity activity = this;
     ListView mListView;

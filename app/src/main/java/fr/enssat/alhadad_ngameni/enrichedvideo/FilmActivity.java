@@ -17,6 +17,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+/**
+ * Activité affichant la vidéo du film et la webView.
+ *
+ * @version 1.0
+ * @author zaid
+ * @author chaka
+ */
 
 public class FilmActivity extends AppCompatActivity {
     Film film;
