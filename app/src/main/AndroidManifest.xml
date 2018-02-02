@@ -18,8 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FilmActivity" />
+        <activity
+            android:name=".FilmActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="landscape" />
         <activity android:name=".SearchActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC9hvNIgyCKyFzK9lPfOk5xwefVLBh-7Sg" />
     </application>
 
 </manifest>

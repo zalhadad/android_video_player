@@ -3,4 +3,5 @@
     <string name="search_title">Chercher un film</string>
     <string name="no_film">Aucun Film trouvé</string>
     <string name="no_video">Aucun video trouvé pour ce film</string>
+    <string name="resetView">reset view</string>
 </resources>

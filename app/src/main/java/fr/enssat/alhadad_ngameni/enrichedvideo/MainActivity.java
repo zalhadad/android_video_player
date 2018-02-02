@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity implements JSONRes {
     ListView mListView;
     FilmsAdapter adapter;
     List<Film> films = new ArrayList<>();
-    String apiBase = "http://alhadad.fr:9292/";
+    //  USE STRINGS FOR THIS
+    String apiBase = "http://alhadad.fr/films";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
